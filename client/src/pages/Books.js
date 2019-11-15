@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
+import SaveBtn from "../components/SaveBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, FormBtn } from "../components/Form";
 
 class Books extends Component {
   state = {
@@ -114,7 +114,7 @@ class Books extends Component {
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Books On My List</h1>
+              <h1>Search Results</h1>
             </Jumbotron>
             {this.state.books.length ? (
               <List>
@@ -123,14 +123,15 @@ class Books extends Component {
                     <div>
                       <img src={book.imageLinks.smallThumbnail}></img>
                       <Link to={"/books/" + book._id}></Link>
-                      <button type="button" className="btn btn-primary">
+                      <button type="button" className="btn btn-primary m-2">
                         <a href={book.previewLink}>Book Link</a>
                       </button>
                       <h2>
                         {book.title} by {book.authors},
                       </h2>
                       <p>{book.description}</p>
-                      <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                      <SaveBtn />
+                      {/* <SaveBtn onClick={() => this.deleteBook(book._id)} /> */}
                     </div>
                   </ListItem>
                 ))}

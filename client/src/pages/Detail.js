@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
+import DeleteBtn from "../components/DeleteBtn";
 
 class Detail extends Component {
   state = {
@@ -40,11 +41,13 @@ class Detail extends Component {
               <h1>Description</h1>
               <p>{this.state.book.description}</p>
             </article>
+            <DeleteBtn />
+            {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
           </Col>
         </Row>
         <Row>
           <Col size="md-2">
-            <Link to="/">← Back to author</Link>
+            <Link to="/">← Back to Search</Link>
           </Col>
         </Row>
       </Container>
