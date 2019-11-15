@@ -5,6 +5,8 @@ import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+// console.log(process.env.REACT_APP_GOOGLE_API_KEY);
+
 function App() {
   return (
     <Router>

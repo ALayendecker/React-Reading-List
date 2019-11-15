@@ -37,14 +37,14 @@ class Detail extends Component {
         <Row>
           <Col size="md-10 md-offset-1">
             <article>
-              <h1>Synopsis</h1>
-              <p>{this.state.book.synopsis}</p>
+              <h1>Description</h1>
+              <p>{this.state.book.description}</p>
             </article>
           </Col>
         </Row>
         <Row>
           <Col size="md-2">
-            <Link to="/">← Back to Authors</Link>
+            <Link to="/">← Back to author</Link>
           </Col>
         </Row>
       </Container>

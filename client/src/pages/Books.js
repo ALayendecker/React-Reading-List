@@ -12,7 +12,9 @@ class Books extends Component {
     books: [],
     title: "",
     author: "",
-    synopsis: ""
+    description: "",
+    image: "",
+    link: ""
   };
 
   componentDidMount() {
@@ -22,7 +24,11 @@ class Books extends Component {
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({
+          books: res.data,
+          title: "",
+          author: ""
+        })
       )
       .catch(err => console.log(err));
   };
@@ -42,16 +48,34 @@ class Books extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
+    const googleBookReturn = this.state.title || this.state.author;
+    API.googleBooksSearch(googleBookReturn)
+      .then(res => {
+        const booksArr = [];
+        for (let i = 0; i < res.data.items.length; i++) {
+          // booksArr.push({});
+          booksArr[i] = res.data.items[i].volumeInfo;
+        }
+        console.log(res.data.items[0].volumeInfo);
+
+        this.setState({ books: booksArr });
       })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
+
+      .catch(err => console.log(err));
   };
+
+  // handleFormSubmit = event => {
+  //   event.preventDefault();
+  //   if (this.state.title && this.state.author) {
+  //     API.saveBook({
+  //       title: this.state.title,
+  //       author: this.state.author,
+  //       description: this.state.description
+  //     })
+  //       .then(res => this.loadBooks())
+  //       .catch(err => console.log(err));
+  //   }
+  // };
 
   render() {
     return (
@@ -66,22 +90,22 @@ class Books extends Component {
                 value={this.state.title}
                 onChange={this.handleInputChange}
                 name="title"
-                placeholder="Title (required)"
+                placeholder="Title"
               />
               <Input
                 value={this.state.author}
                 onChange={this.handleInputChange}
                 name="author"
-                placeholder="Author (required)"
+                placeholder="Author(s)"
               />
-              <TextArea
-                value={this.state.synopsis}
+              {/* <TextArea
+                value={this.state.description}
                 onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              />
+                name="description"
+                placeholder="Description (Optional)"
+              /> */}
               <FormBtn
-                disabled={!(this.state.author && this.state.title)}
+                disabled={!(this.state.author || this.state.title)}
                 onClick={this.handleFormSubmit}
               >
                 Submit Book
@@ -96,12 +120,18 @@ class Books extends Component {
               <List>
                 {this.state.books.map(book => (
                   <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <div>
+                      <img src={book.imageLinks.smallThumbnail}></img>
+                      <Link to={"/books/" + book._id}></Link>
+                      <button type="button" className="btn btn-primary">
+                        <a href={book.previewLink}>Book Link</a>
+                      </button>
+                      <h2>
+                        {book.title} by {book.authors},
+                      </h2>
+                      <p>{book.description}</p>
+                      <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    </div>
                   </ListItem>
                 ))}
               </List>
