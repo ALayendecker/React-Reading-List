@@ -18,7 +18,7 @@ class Books extends Component {
   };
 
   componentDidMount() {
-    this.loadBooks();
+    // this.loadBooks();
   }
 
   loadBooks = () => {
@@ -35,7 +35,7 @@ class Books extends Component {
 
   deleteBook = id => {
     API.deleteBook(id)
-      .then(res => this.loadBooks())
+      // .then(res => this.loadBooks())
       .catch(err => console.log(err));
   };
 
