@@ -55,7 +55,7 @@ class Saved extends Component {
                       <a href={book.link}>Book Link</a>
                     </button>
                     <h2>
-                      {book.title} by {book.authors},
+                      {book.title} by {book.author},
                     </h2>
                     <p>{book.description}</p>
                     {/* <Link to="/books/saved"> */}

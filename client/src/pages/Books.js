@@ -37,7 +37,7 @@ class Books extends Component {
     savedBooks = savedBooks[0];
     const saveTheBookToDB = {
       title: savedBooks.title,
-      authors: savedBooks.authors[0],
+      author: savedBooks.authors[0],
       description: savedBooks.description,
       image: savedBooks.imageLinks.smallThumbnail,
       link: savedBooks.previewLink
