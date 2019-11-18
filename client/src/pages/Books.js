@@ -11,10 +11,7 @@ class Books extends Component {
   state = {
     books: [],
     title: "",
-    author: "",
-    description: "",
-    image: "",
-    link: ""
+    author: ""
   };
 
   componentDidMount() {
@@ -33,9 +30,21 @@ class Books extends Component {
       .catch(err => console.log(err));
   };
 
-  deleteBook = id => {
-    API.deleteBook(id)
-      // .then(res => this.loadBooks())
+  // adding book to db
+
+  saveBook = id => {
+    let savedBooks = this.state.books.filter(book => book.id === id);
+    savedBooks = savedBooks[0];
+    console.log(savedBooks);
+    const saveBooksToDb = {
+      title: savedBooks.books.title,
+      author: savedBooks.books.author,
+      description: savedBooks.books.description,
+      image: savedBooks.books.image,
+      link: savedBooks.books.link
+    };
+    API.saveBook(saveBooksToDb)
+      .then(console.log("Book added"))
       .catch(err => console.log(err));
   };
 
@@ -54,6 +63,7 @@ class Books extends Component {
         const booksArr = [];
         for (let i = 0; i < res.data.items.length; i++) {
           // booksArr.push({});
+          // booksArr.push({});
           booksArr[i] = res.data.items[i].volumeInfo;
         }
         console.log(res.data.items[0].volumeInfo);
@@ -63,19 +73,6 @@ class Books extends Component {
 
       .catch(err => console.log(err));
   };
-
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
-  //   if (this.state.title && this.state.author) {
-  //     API.saveBook({
-  //       title: this.state.title,
-  //       author: this.state.author,
-  //       description: this.state.description
-  //     })
-  //       .then(res => this.loadBooks())
-  //       .catch(err => console.log(err));
-  //   }
-  // };
 
   render() {
     return (
@@ -130,8 +127,9 @@ class Books extends Component {
                         {book.title} by {book.authors},
                       </h2>
                       <p>{book.description}</p>
-                      <SaveBtn />
-                      {/* <SaveBtn onClick={() => this.deleteBook(book._id)} /> */}
+                      <Link to="/books/saved">
+                        <SaveBtn onClick={() => this.saveBook(book._id)} />
+                      </Link>
                     </div>
                   </ListItem>
                 ))}

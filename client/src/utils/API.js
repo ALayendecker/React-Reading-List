@@ -5,18 +5,19 @@ export default {
   getBooks: function() {
     return axios.get("/api/books");
   },
+  // Gets the book with the given id
+  getSaved: function() {
+    return axios.post("/api/books/saved");
+  },
+
   // Saves a book to the database
   saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
+    return axios.get("/api/books/", bookData);
   },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
-  },
-  // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete("/api/books/" + id);
-  },
+  // // Deletes the book with the given id
+  // deleteBook: function(id) {
+  //   return axios.delete("/api/books/" + id);
+  // },
 
   googleBooksSearch: function(query) {
     console.log(query);
