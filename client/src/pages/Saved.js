@@ -4,21 +4,15 @@ import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { List, ListItem } from "../components/List";
-import DeleteBtn from "../components/DeleteBtn";
+// import DeleteBtn from "../components/DeleteBtn";
 
 class Saved extends Component {
   state = {
-    book: []
+    books: []
   };
 
   componentDidMount() {
     this.loadBooks();
-    // API.getSaved(this.props.match.params.id)
-    //   .then(res => {
-    //     console.log(res.data);
-    //     this.setState({ book: res.data });
-    //   })
-    //   .catch(err => console.log(err));
   }
 
   loadBooks = () => {
@@ -26,7 +20,7 @@ class Saved extends Component {
       .then(res => {
         console.log(res.data);
         this.setState({
-          book: res.data
+          books: res.data
         });
         // console.log(books.title[0]);
         console.log(this.state.book[0].title);
@@ -50,31 +44,29 @@ class Saved extends Component {
         </Row>
         <Row>
           <Col size="md-10 md-offset-1">
-            {/* <List>
+            {/* {this.state.books.length ? ( */}
+            <List>
               {this.state.books.map(book => (
                 <ListItem key={book._id}>
                   <div>
-                    <img src={book.imageLinks.smallThumbnail}></img>
-                    <Link to={"/books/" + book._id}></Link>
+                    <img src={book.image}></img>
+                    {/* <Link to={"/books/" + book._id}></Link> */}
                     <button type="button" className="btn btn-primary m-2">
-                      <a href={book.previewLink}>Book Link</a>
+                      <a href={book.link}>Book Link</a>
                     </button>
                     <h2>
                       {book.title} by {book.authors},
                     </h2>
                     <p>{book.description}</p>
+                    {/* <Link to="/books/saved"> */}
+                    {/* <SaveBtn onClick={() => this.saveBook(book._id)} /> */}
+                    {/* </Link> */}
                   </div>
                 </ListItem>
               ))}
-            </List> */}
-            {/* article- deletebtn  */}
-            <article>
-              <h1>Description</h1>
-              {/* <p>{this.state.book[0].author}</p>
-              <p>{this.state.book[0].title}</p> */}
-            </article>
-            {/* <DeleteBtn /> */}
-            {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
+            </List>
+            {/* ) : (<h3>No Results to Display</h3>
+            )} */}
           </Col>
         </Row>
         <Row>

@@ -18,7 +18,10 @@ export default {
   // deleteBook: function(id) {
   //   return axios.delete("/api/books/" + id);
   // },
-
+  // getGoogleBooks: function(query) {
+  //   console.log(query);
+  //   return axios.get("/api/books/googlebooks", { params: { q: query } });
+  // },
   googleBooksSearch: function(query) {
     console.log(query);
     return axios.get("https://www.googleapis.com/books/v1/volumes?q=" + query);

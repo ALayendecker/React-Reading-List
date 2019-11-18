@@ -32,21 +32,41 @@ class Books extends Component {
 
   // adding book to db
 
-  saveBook = id => {
-    let savedBooks = this.state.books.filter(book => book.id === id);
-    savedBooks = savedBooks[0];
-    console.log(savedBooks);
-    const saveBooksToDb = {
-      title: savedBooks.books.title,
-      author: savedBooks.books.author,
-      description: savedBooks.books.description,
-      image: savedBooks.books.image,
-      link: savedBooks.books.link
-    };
-    API.saveBook(saveBooksToDb)
-      .then(console.log("Book added"))
+  saveBookToDB = _id => {
+    // console.log(event);
+    console.log(_id);
+    // event.preventDefault();
+    console.log(this.state.books[_id]);
+    console.log(this.state.books);
+    // const test = {
+    API.saveBook({
+      title: this.state.books[0].title,
+      authors: this.state.books[0].authors,
+      description: this.state.books[0].description,
+      image: this.state.books[0].image,
+      link: this.state.books[0].link
+      // };
+      // console.log(test);
+    })
+      .then(res => console.log(res))
       .catch(err => console.log(err));
   };
+
+  // saveBook = id => {
+  //   let savedBooks = this.state.books.filter(book => book.id === id);
+  //   savedBooks = savedBooks[0];
+  //   console.log(savedBooks);
+  //   const saveBooksToDb = {
+  //     title: savedBooks.books.title,
+  //     author: savedBooks.books.author,
+  //     description: savedBooks.books.description,
+  //     image: savedBooks.books.image,
+  //     link: savedBooks.books.link
+  //   };
+  //   API.saveBook(saveBooksToDb)
+  //     .then(console.log("Book added"))
+  //     .catch(err => console.log(err));
+  // };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -128,7 +148,10 @@ class Books extends Component {
                       </h2>
                       <p>{book.description}</p>
                       <Link to="/books/saved">
-                        <SaveBtn onClick={() => this.saveBook(book._id)} />
+                        <SaveBtn
+                          id={book._id}
+                          onClick={() => this.saveBookToDB(book._id)}
+                        />
                       </Link>
                     </div>
                   </ListItem>
