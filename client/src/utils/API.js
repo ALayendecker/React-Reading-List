@@ -12,7 +12,7 @@ export default {
 
   // Saves a book to the database
   saveBook: function(bookData) {
-    return axios.get("/api/books/", bookData);
+    return axios.post("/api/books/", bookData);
   },
   // // Deletes the book with the given id
   // deleteBook: function(id) {

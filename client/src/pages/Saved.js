@@ -23,7 +23,7 @@ class Saved extends Component {
           books: res.data
         });
         // console.log(books.title[0]);
-        console.log(this.state.book[0].title);
+        console.log(this.state.books[0].title);
       })
       .catch(err => console.log(err));
   };
